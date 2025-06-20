@@ -6,7 +6,7 @@ const app = express();
 app.use(cors());
 
 app.use(cors({
-  origin: 'https://babypanda-dapp.vercel.app'
+  origin: 'https://babypanda-backend.vercel.app'
 }));
 
 const CLIENT_ID = process.env.CLIENT_ID;
