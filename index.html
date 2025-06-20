@@ -113,6 +113,20 @@
   .discord-button:hover {
     background-color: #4752c4;
   }
+  .twitter-button {
+    display: inline-block;
+    background-color: #1DA1F2;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+  }
+  .twitter-button:hover {
+    background-color: #178cd1;
+  }
   .socials {
     margin: 40px 0 20px 0;
   }
@@ -164,7 +178,9 @@
     <br>
     <button type="submit" id="submitButton">Submit</button>
     <br>
-    <a class="discord-button" <a href="https://discord.com/api/oauth2/authorize?client_id=1380972238249005077&redirect_uri=https%3A%2F%2Fbabypanda-backend.vercel.app%2Fapi%2Fauth%2Fdiscord&response_type=code&scope=identify">Connect Discord</a>
+    <a class="discord-button" href="https://discord.com/api/oauth2/authorize?client_id=1380972238249005077&redirect_uri=https%3A%2F%2Fbabypanda-backend.vercel.app%2Fapi%2Fauth%2Fdiscord&response_type=code&scope=identify">Connect Discord</a>
+    <br>
+    <a class="twitter-button" href="https://twitter.com/i/oauth2/authorize?response_type=code&client_id=SklvU0Vrd09xV042U0NZT2ZJU3E6MTpjaQ&redirect_uri=https%3A%2F%2Fbabypanda-backend.vercel.app%2Fapi%2Fauth%2Ftwitter&scope=tweet.read%20users.read%20offline.access&state=state&code_challenge=challenge&code_challenge_method=plain">Connect Twitter</a>
   </div>
 </div>
 
