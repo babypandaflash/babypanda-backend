@@ -2,11 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
 const cors = require('cors');
-const app = express();
-app.use(cors());
 
+const app = express();
+
+// CORS: hanya izinkan dari frontend Vercel
 app.use(cors({
-  origin: 'https://babypanda-backend.vercel.app'
+  origin: 'https://babypanda-backend.vercel.app'  // ganti ini sesuai domain vercel frontend kamu
 }));
 
 const CLIENT_ID = process.env.CLIENT_ID;
@@ -26,7 +27,6 @@ app.get('/api/auth/discord/callback', async (req, res) => {
   }
 
   try {
-    // Tukar code ke access_token
     const tokenResponse = await axios.post('https://discord.com/api/oauth2/token', new URLSearchParams({
       client_id: CLIENT_ID,
       client_secret: CLIENT_SECRET,
@@ -42,7 +42,6 @@ app.get('/api/auth/discord/callback', async (req, res) => {
 
     const accessToken = tokenResponse.data.access_token;
 
-    // Ambil data user Discord
     const userResponse = await axios.get('https://discord.com/api/users/@me', {
       headers: {
         Authorization: `Bearer ${accessToken}`
@@ -51,7 +50,6 @@ app.get('/api/auth/discord/callback', async (req, res) => {
 
     const user = userResponse.data;
 
-    // Di sini kamu bisa simpan ke database / kirim ke frontend
     res.send(`<h1>Welcome, ${user.username}!</h1><p>Your Discord ID: ${user.id}</p>`);
 
   } catch (error) {
@@ -62,3 +60,4 @@ app.get('/api/auth/discord/callback', async (req, res) => {
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
+  
