@@ -5,6 +5,10 @@ const cors = require('cors');
 const app = express();
 app.use(cors());
 
+app.use(cors({
+  origin: 'https://babypanda-dapp.vercel.app'
+}));
+
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 const REDIRECT_URI = process.env.REDIRECT_URI;
