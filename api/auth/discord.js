@@ -1,52 +1,62 @@
 export default async function handler(req, res) {
-  const clientId = process.env.DISCORD_CLIENT_ID;
-  const clientSecret = process.env.DISCORD_CLIENT_SECRET;
-  const redirectUri = process.env.DISCORD_REDIRECT_URI;
-
   const code = req.query.code;
+
   if (!code) {
-    return res.status(400).json({ error: "No code provided" });
+    return res.status(400).send("No code provided");
   }
 
+  // ganti dengan client_id dan client_secret kamu di .env.local
+  const clientId = process.env.DISCORD_CLIENT_ID;
+  const clientSecret = process.env.DISCORD_CLIENT_SECRET;
+  const redirectUri = process.env.DISCORD_REDIRECT_URI; // https://babypanda-backend.vercel.app/api/auth/discord
+
+  const params = new URLSearchParams();
+  params.append("client_id", clientId);
+  params.append("client_secret", clientSecret);
+  params.append("grant_type", "authorization_code");
+  params.append("code", code);
+  params.append("redirect_uri", redirectUri);
+
   try {
-    // Tukar authorization code jadi access token
+    // Exchange code → token
     const tokenResponse = await fetch("https://discord.com/api/oauth2/token", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded"
-      },
-      body: new URLSearchParams({
-        client_id: clientId,
-        client_secret: clientSecret,
-        grant_type: "authorization_code",
-        code: code,
-        redirect_uri: redirectUri
-      })
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: params
     });
 
-    const tokenData = await tokenResponse.json();
-
-    if (tokenData.error) {
-      return res.status(400).json({ error: tokenData.error_description });
+    if (!tokenResponse.ok) {
+      const error = await tokenResponse.text();
+      console.error("Token exchange failed:", error);
+      return res.status(500).send("Token exchange failed");
     }
 
-    // (Opsional) Ambil user info dari access token
+    const tokenData = await tokenResponse.json();
+    const accessToken = tokenData.access_token;
+
+    // Fetch user info pakai access token
     const userResponse = await fetch("https://discord.com/api/users/@me", {
-      headers: {
-        Authorization: `Bearer ${tokenData.access_token}`
-      }
+      headers: { Authorization: `Bearer ${accessToken}` }
     });
 
+    if (!userResponse.ok) {
+      const error = await userResponse.text();
+      console.error("User fetch failed:", error);
+      return res.status(500).send("User fetch failed");
+    }
+
     const userData = await userResponse.json();
+    console.log("Discord User Connected:", userData);
 
-    console.log("Connected user:", userData);
-
-    // Setelah sukses → redirect ke front-end kamu dengan param
-    return res.redirect("https://your-frontend-domain.com/community?discord=connected");
+    // Redirect balik ke front-end dengan query ?discord=connected
+    res.writeHead(302, {
+      Location: `https://babypanda.vercel.app/community?discord=connected`
+    });
+    res.end();
 
   } catch (error) {
     console.error("OAuth error:", error);
-    res.status(500).json({ error: "OAuth process failed" });
+    res.status(500).send("Internal server error");
   }
 }
 
