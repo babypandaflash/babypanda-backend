@@ -99,8 +99,9 @@
   .wallet-form button:hover {
     background-color: #c5123b;
   }
-  .discord-button, .twitter-button, .telegram-button, .youtube-button {
+  .discord-button {
     display: inline-block;
+    background-color: #5865F2;
     color: white;
     text-decoration: none;
     padding: 12px 30px;
@@ -109,14 +110,51 @@
     margin-top: 15px;
     transition: background-color 0.3s;
   }
-  .discord-button { background-color: #5865F2; }
-  .discord-button:hover { background-color: #4752c4; }
-  .twitter-button { background-color: #1DA1F2; }
-  .twitter-button:hover { background-color: #178cd1; }
-  .telegram-button { background-color: #229ED9; }
-  .telegram-button:hover { background-color: #1b8bbd; }
-  .youtube-button { background-color: #FF0000; }
-  .youtube-button:hover { background-color: #cc0000; }
+  .discord-button:hover {
+    background-color: #4752c4;
+  }
+  .twitter-button {
+    display: inline-block;
+    background-color: #1DA1F2;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+  }
+  .twitter-button:hover {
+    background-color: #178cd1;
+  }
+  .telegram-button {
+    display: inline-block;
+    background-color: #229ED9;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+  }
+  .telegram-button:hover {
+    background-color: #1b8bbd;
+  }
+  .youtube-button {
+    display: inline-block;
+    background-color: #FF0000;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+  }
+  .youtube-button:hover {
+    background-color: #cc0000;
+  }
   .socials {
     margin: 40px 0 20px 0;
   }
@@ -168,17 +206,19 @@
     <br>
     <button type="submit" id="submitButton">Submit</button>
     <br>
-    <a class="discord-button" href="https://babypanda-backend.vercel.app/api/auth/discord">
+    <a class="discord-button" href="https://discord.com/api/oauth2/authorize?client_id=1380972238249005077&redirect_uri=https%3A%2F%2Fbabypanda-backend.vercel.app%2Fapi%2Fauth%2Fdiscord&response_type=code&scope=identify">
       <i class="fab fa-discord"></i> Connect Discord</a>
     <br>
-    <a class="twitter-button" href="https://babypanda-backend.vercel.app/api/auth/twitter">
+    <a class="twitter-button" href="https://twitter.com/i/oauth2/authorize?response_type=code&client_id=SklvU0Vrd09xV042U0NZT2ZJU3E6MTpjaQ&redirect_uri=https%3A%2F%2Fbabypanda-backend.vercel.app%2Fapi%2Fauth%2Ftwitter&scope=tweet.read%20users.read%20offline.access&state=state&code_challenge=challenge&code_challenge_method=plain">
       <i class="fab fa-twitter"></i> Connect Twitter</a>
     <br>
     <a class="telegram-button" href="https://babypanda-backend.vercel.app/api/auth/telegram">
-      <i class="fab fa-telegram"></i> Connect Telegram</a>
+      <i class="fab fa-telegram"></i> Connect Telegram
+    </a>
     <br>
-    <a class="youtube-button" href="https://babypanda-backend.vercel.app/api/auth/youtube">
-      <i class="fab fa-youtube"></i> Connect YouTube</a>
+    <a class="youtube-button" href="https://youtube.com/i/oauth2/authorize?response_type=code&client_id=https://34087764761-q0ebdc794fnnbtdlcsfd7a2ua6tdtd2o.apps.googleusercontent.com&redirect_uri=https%3A%2F%2Fbabypanda-backend.vercel.app%2Fapi%2Fauth%2Ftwitter&scope=tweet.read%20users.read%20offline.access&state=state&code_challenge=challenge&code_challenge_method=plain">
+      <i class="fab fa-youtube"></i> Connect YouTube
+    </a>
   </div>
 </div>
 
