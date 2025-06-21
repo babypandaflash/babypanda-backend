@@ -99,9 +99,8 @@
   .wallet-form button:hover {
     background-color: #c5123b;
   }
-  .discord-button {
+  .discord-button, .twitter-button, .telegram-button, .youtube-button {
     display: inline-block;
-    background-color: #5865F2;
     color: white;
     text-decoration: none;
     padding: 12px 30px;
@@ -110,51 +109,14 @@
     margin-top: 15px;
     transition: background-color 0.3s;
   }
-  .discord-button:hover {
-    background-color: #4752c4;
-  }
-  .twitter-button {
-    display: inline-block;
-    background-color: #242424;
-    color: white;
-    text-decoration: none;
-    padding: 12px 30px;
-    font-size: 16px;
-    border-radius: 8px;
-    margin-top: 15px;
-    transition: background-color 0.3s;
-  }
-  .twitter-button:hover {
-    background-color: #178cd1;
-  }
-  .telegram-button {
-    display: inline-block;
-    background-color: #229ED9;
-    color: white;
-    text-decoration: none;
-    padding: 12px 30px;
-    font-size: 16px;
-    border-radius: 8px;
-    margin-top: 15px;
-    transition: background-color 0.3s;
-  }
-  .telegram-button:hover {
-    background-color: #1b8bbd;
-  }
-  .youtube-button {
-    display: inline-block;
-    background-color: #FF0000;
-    color: white;
-    text-decoration: none;
-    padding: 12px 30px;
-    font-size: 16px;
-    border-radius: 8px;
-    margin-top: 15px;
-    transition: background-color 0.3s;
-  }
-  .youtube-button:hover {
-    background-color: #cc0000;
-  }
+  .discord-button { background-color: #5865F2; }
+  .discord-button:hover { background-color: #4752c4; }
+  .twitter-button { background-color: #242424; }
+  .twitter-button:hover { background-color: #178cd1; }
+  .telegram-button { background-color: #229ED9; }
+  .telegram-button:hover { background-color: #1b8bbd; }
+  .youtube-button { background-color: #FF0000; }
+  .youtube-button:hover { background-color: #cc0000; }
   .socials {
     margin: 40px 0 20px 0;
   }
@@ -237,6 +199,28 @@
 <script>
 function toggleMenu() {
   document.getElementById("menuCard").classList.toggle("active");
+}
+
+// Cek apakah user sudah connect Discord
+document.addEventListener("DOMContentLoaded", function() {
+  const discordButton = document.querySelector(".discord-button");
+  if (localStorage.getItem("discord_connected") === "true") {
+    discordButton.innerHTML = '<i class="fab fa-discord"></i> Disconnect Discord';
+    discordButton.href = "#";
+    discordButton.addEventListener("click", function(e) {
+      e.preventDefault();
+      localStorage.removeItem("discord_connected");
+      alert("Discord account disconnected.");
+      location.reload();
+    });
+  }
+});
+
+// Tangkap query param dari OAuth Discord callback
+const urlParams = new URLSearchParams(window.location.search);
+if (urlParams.get("discord") === "connected") {
+  localStorage.setItem("discord_connected", "true");
+  window.history.replaceState({}, document.title, window.location.pathname);
 }
 </script>
 
