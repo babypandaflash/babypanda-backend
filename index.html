@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>BabyPanda Flash DApp</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+<style>
+  body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    background: url('https://raw.githubusercontent.com/babypandaflash/image/refs/heads/main/BabyPanda0.png') repeat;
+    animation: pan-bg 30s linear infinite;
+    background-size: 70px;
+    color: white;
+    text-align: center;
+  }
+  @keyframes pan-bg {
+    from { background-position: 0 0; }
+    to { background-position: 600px 600px; }
+  }
+  .menu-card {
+    max-width: 600px;
+    margin: 20px auto 10px auto;
+    padding: 10px;
+    background-image: url('https://raw.githubusercontent.com/babypandaflash/image/refs/heads/main/BabyPanda0.png');
+    background-repeat: repeat;
+    animation: pan-bg 30s linear infinite;
+    background-size: 120px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  }
+  .hamburger {
+    display: block;
+    cursor: pointer;
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  .menu-items {
+    display: none;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .menu-items a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-size: 18px;
+  }
+  .menu-card.active .menu-items {
+    display: flex;
+  }
+  .page-title {
+    font-size: 36px;
+    color: #e6194b;
+    font-weight: bold;
+    margin: 10px auto 20px auto;
+  }
+  .dapp-card {
+    max-width: 700px;
+    margin: 30px auto;
+    padding: 20px;
+    background-image: url('https://raw.githubusercontent.com/babypandaflash/image/refs/heads/main/BabyPanda0.png');
+    background-repeat: repeat;
+    animation: pan-bg 30s linear infinite;
+    background-size: 120px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    text-align: center;
+    color: white;
+  }
+  .dapp-card h1 {
+    color: #e6194b;
+    font-size: 36px;
+  }
+  .wallet-form {
+    margin-top: 30px;
+  }
+  .wallet-form input[type="text"] {
+    width: 80%;
+    max-width: 400px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    font-size: 16px;
+    margin-bottom: 15px;
+  }
+  .wallet-form button {
+    background-color: #e6194b;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  .wallet-form button:hover {
+    background-color: #c5123b;
+  }
+  .discord-button, .twitter-button, .telegram-button, .youtube-button {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    padding: 12px 30px;
+    font-size: 16px;
+    border-radius: 8px;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+  }
+  .discord-button { background-color: #5865F2; }
+  .discord-button:hover { background-color: #4752c4; }
+  .twitter-button { background-color: #1DA1F2; }
+  .twitter-button:hover { background-color: #178cd1; }
+  .telegram-button { background-color: #229ED9; }
+  .telegram-button:hover { background-color: #1b8bbd; }
+  .youtube-button { background-color: #FF0000; }
+  .youtube-button:hover { background-color: #cc0000; }
+  .socials {
+    margin: 40px 0 20px 0;
+  }
+  .socials a {
+    color: #FFFFFF;
+    margin: 0 10px;
+    font-size: 26px;
+    transition: color 0.3s;
+  }
+  .socials a:hover {
+    color: #e6194b;
+  }
+  .copyright {
+    text-align: center;
+    margin: 10px auto 20px auto;
+    font-size: 16px;
+    color: #FFFFFF;
+  }
+</style>
+</head>
+<body>
+
+<div class="menu-card" id="menuCard">
+  <div class="hamburger" onclick="toggleMenu()">
+    <i class="fas fa-bars"></i>
+  </div>
+  <div class="menu-items">
+    <a href="/">Home</a>
+    <a href="/community">Community</a>
+    <a href="/whitelist">Whitelist</a>
+    <a href="/presale">Presale</a>
+    <a href="/publicsale">Public Sale</a>
+    <a href="/roadmap">Roadmap</a>
+    <a href="/tokenomics">Tokenomics</a>
+  </div>
+</div>
+
+<div class="page-title">BabyPanda Flash - Community</div>
+
+<div class="dapp-card">
+  <h1>Join Our Community</h1>
+  <p>Become part of the BabyPanda Flash early community and grow together with us.</p>
+  <p>Connect, engage, and contribute to the development of our decentralized ecosystem.</p>
+  <p>Your participation matters!</p>
+  <p>Follow us on our official channels to stay updated:</p>
+
+  <div class="wallet-form">
+    <input type="text" id="walletInput" placeholder="e.g. 3GxF...9KfU Sol Address" />
+    <br>
+    <button type="submit" id="submitButton">Submit</button>
+    <br>
+    <a class="discord-button" href="https://babypanda-backend.vercel.app/api/auth/discord">
+      <i class="fab fa-discord"></i> Connect Discord</a>
+    <br>
+    <a class="twitter-button" href="https://babypanda-backend.vercel.app/api/auth/twitter">
+      <i class="fab fa-twitter"></i> Connect Twitter</a>
+    <br>
+    <a class="telegram-button" href="https://babypanda-backend.vercel.app/api/auth/telegram">
+      <i class="fab fa-telegram"></i> Connect Telegram</a>
+    <br>
+    <a class="youtube-button" href="https://babypanda-backend.vercel.app/api/auth/youtube">
+      <i class="fab fa-youtube"></i> Connect YouTube</a>
+  </div>
+</div>
+
+<div class="socials">
+  <a href="https://t.me/+y4hMLFIzNl5jNjhl" target="_blank"><i class="fab fa-telegram"></i></a>
+  <a href="https://x.com/BabyPandaFlash" target="_blank"><i class="fab fa-twitter"></i></a>
+  <a href="https://discord.gg/REFJJ9Ww6T" target="_blank"><i class="fab fa-discord"></i></a>
+  <a href="https://www.instagram.com/babypandaflash" target="_blank"><i class="fab fa-instagram"></i></a>
+  <a href="https://youtube.com/@babypandaflash" target="_blank"><i class="fab fa-youtube"></i></a>
+</div>
+
+<div class="copyright">
+  © 2025 BabyPanda Flash. All rights reserved.
+</div>
+
+<script>
+function toggleMenu() {
+  document.getElementById("menuCard").classList.toggle("active");
+}
+</script>
+
+</body>
+</html>
