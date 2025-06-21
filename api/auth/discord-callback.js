@@ -1,3 +1,4 @@
+
 export default async function handler(req, res) {
   const code = req.query.code;
 
@@ -26,24 +27,20 @@ export default async function handler(req, res) {
       return res.status(500).json({ error: data.error_description });
     }
 
-    // 👉 Bisa simpan data.access_token di cookie / database di sini
-    // atau redirect ke halaman success + token via query param (kurang disarankan)
-
-    // Contoh: ambil user info pakai token
     const userResponse = await fetch("https://discord.com/api/users/@me", {
       headers: {
         Authorization: `Bearer ${data.access_token}`,
       },
     });
 
+    if (!userResponse.ok) {
+      throw new Error("Failed to fetch user info");
+    }
+
     const user = await userResponse.json();
 
-    // Bisa simpan ke DB atau session di sini
-
-    return res.status(200).json({
-      tokenData: data,
-      userInfo: user,
-    });
+    // Redirect balik ke DApp
+    return res.redirect(`https://babypanda-backend.vercel.app?username=${encodeURIComponent(user.username)}`);
   } catch (error) {
     console.error("OAuth2 Error:", error);
     return res.status(500).json({ error: "Internal server error" });
