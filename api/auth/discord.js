@@ -39,7 +39,7 @@ export default async function handler(req, res) {
     const user = await userResponse.json();
 
     // ✅ Redirect ke DApp kamu
-    return res.redirect(`https://babypanda-backend.vercel.app?discord=${encodeURIComponent(user.username)}`);
+    return res.redirect(`https://babypanda-backend.vercel.app/community?discord=${encodeURIComponent(user.username)}`);
   } catch (error) {
     console.error("OAuth2 Error:", error);
     return res.status(500).json({ error: "Internal server error" });
