@@ -197,33 +197,41 @@
 </div>
 
 <script>
+<script>
 function toggleMenu() {
   document.getElementById("menuCard").classList.toggle("active");
 }
 
-// Cek apakah user sudah connect Discord
+// Tombol Discord dinamis
 document.addEventListener("DOMContentLoaded", function() {
   const discordButton = document.querySelector(".discord-button");
-  if (localStorage.getItem("discord_connected") === "true") {
-    discordButton.innerHTML = '<i class="fab fa-discord"></i> Disconnect Discord';
-    discordButton.href = "#";
-    discordButton.addEventListener("click", function(e) {
-      e.preventDefault();
-      localStorage.removeItem("discord_connected");
-      alert("Discord account disconnected.");
-      location.reload();
-    });
-  }
-});
 
-// Tangkap query param dari OAuth Discord callback
-const urlParams = new URLSearchParams(window.location.search);
-if (urlParams.get("discord") === "connected") {
-  localStorage.setItem("discord_connected", "true");
-  window.history.replaceState({}, document.title, window.location.pathname);
-}
+  function updateDiscordButton() {
+    if (localStorage.getItem("discord_connected") === "true") {
+      discordButton.innerHTML = '<i class="fab fa-discord"></i> Disconnect Discord';
+      discordButton.href = "#";
+      discordButton.onclick = function(e) {
+        e.preventDefault();
+        localStorage.removeItem("discord_connected");
+        updateDiscordButton();
+        alert("Disconnected from Discord.");
+      };
+    } else {
+      discordButton.innerHTML = '<i class="fab fa-discord"></i> Connect Discord';
+      discordButton.href = "#";
+      discordButton.onclick = function(e) {
+        e.preventDefault();
+        localStorage.setItem("discord_connected", "true");
+        updateDiscordButton();
+        alert("Connected to Discord.");
+      };
+    }
+  }
+
+  // Pertama kali load halaman
+  updateDiscordButton();
+});
 </script>
 
 </body>
 </html>
-
